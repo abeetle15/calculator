@@ -4,6 +4,9 @@ const addBtn = document.querySelector('#addBtn')
 const substractBtn = document.querySelector('#substractBtn')
 const multiplyBtn = document.querySelector('#multiplyBtn')
 const divideBtn = document.querySelector('#divideBtn')
+const moduloBtn = document.querySelector('#moduloBtn')
+
+const plusMinusBtn = document.querySelector('#plusMinusBtn')
 
 const equalsBtn = document.querySelector('#equalsBtn')
 
@@ -50,8 +53,11 @@ addBtn.addEventListener('click', () => { handleOperators('+') })
 substractBtn.addEventListener('click', () => { handleOperators('-') })
 multiplyBtn.addEventListener('click', () => { handleOperators('x') })
 divideBtn.addEventListener('click', () => { handleOperators('/') })
+moduloBtn.addEventListener('click', () => { handleOperators('%') })
 
-equalsBtn.addEventListener('click', () => { equalTo() })
+plusMinusBtn.addEventListener('click', () => { plusMinus() })
+
+equalsBtn.addEventListener('click', () => { equalTo(); opFlag = false; })
 
 /* -------------------------------- Functions ------------------------------- */
 
@@ -73,18 +79,31 @@ function updateDisplay(digitString) {
 }
 
 function handleOperators(op) {
-  if (typeof displayNum === "string") {
-    firstNum = parseInt(displayNum);
-    displayNum = 0;
-    console.log(firstNum);
-    console.log(displayNum);
+  if (!opFlag) {
+    if (typeof displayNum === "string") {
+      firstNum = parseInt(displayNum);
+      displayNum = 0;
+    }
+
+    operator = op;
+    display.textContent = op;
+    opFlag = true;
+  } else if (opFlag) {
+    equalTo();
+    operator = op;
   }
-
-  operator = op;
-  display.textContent = op;
-
-
 }
+
+function plusMinus() {
+  if (!displayNum.includes('-')) {
+    displayNum = '-' + displayNum;
+    updateText();
+  } else if (displayNum.includes('-')) {
+    displayNum = displayNum.split('').filter(character => character !== '-').join('');
+    updateText();
+  }
+}
+
 
 function equalTo() {
 
@@ -121,3 +140,4 @@ function operate(firstNum, operator, secondNum) {
       return mod(firstNum, secondNum);
   }
 }
+
