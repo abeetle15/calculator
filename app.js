@@ -120,7 +120,7 @@ function equalTo() {
 
 function add(a, b) { return a + b };
 function substract(a, b) { return a - b };
-function multiply(a, b) { return a * b };
+const multiply = function (a, b) { return a * b };
 function divide(a, b) { return a / b };
 function mod(a, b) { return a % b };
 
@@ -140,4 +140,3 @@ function operate(firstNum, operator, secondNum) {
       return mod(firstNum, secondNum);
   }
 }
-
